@@ -1,33 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState,useEffect } from 'react'
+import Results from './Components/Results';
+import axios from 'axios';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [complete, setComplete] = useState(false);
+  const [questions,setQuestions] =useState([]);
+  const [answers,setAnswers] =useState([]);
+  const [category,setCategory] = useState(0);
+
+  useEffect(()=>{
+    axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`).then(response=>setQuestions(response.data)).catch(e=>console.error(e));
+  },[])
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    {complete?<Results questions={questions} answers={answers}/>:questions.length>0?<p>Start first question</p>:<p>Show landing page</p>}
+      
     </>
   )
 }
