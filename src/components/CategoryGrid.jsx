@@ -3,6 +3,7 @@ import categories from '../categories'
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import axios from 'axios';
 
 function CategoryGrid() {
   
@@ -11,10 +12,22 @@ function CategoryGrid() {
   const [category, setCategory] = useState('0');
   const [questions, setQuestions] = useState([]);
 
+  // useEffect(() => {
+  //   if(category !== '0'){
+  //     fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
+  //     .then(res => res.json())
+  //     .then(data =>
+  //       setTimeout(() => {
+  //         setQuestions(data);
+  //       }, 1000),
+  //     )
+  //     .catch(error => console.error(error));
+  //   }
+  // }, [category]);
+
   useEffect(() => {
     if(category !== '0'){
-      fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
-      .then(res => res.json())
+      axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
       .then(data =>
         setTimeout(() => {
           setQuestions(data);
