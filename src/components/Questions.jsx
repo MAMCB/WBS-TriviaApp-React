@@ -18,6 +18,8 @@ function Questions({
   selectPreviousQuestion,
   setSubmit,
   userAnswers,
+  currentQuestion,
+  questionsLength,
 }) {
   useEffect(() => {
     console.log(question);
@@ -33,7 +35,7 @@ function Questions({
   }
 
   function handleAnswer(e) {
-    setUserAnswers([...userAnswers]);
+    setUserAnswers([...userAnswers, answers[e.id]]);
   }
 
   return (
@@ -54,14 +56,32 @@ function Questions({
               </Col>
               <Col>
                 <p>{answers[1]}</p>
+                <Form.Check
+                  type="checkbox"
+                  checked={false}
+                  id="1"
+                  onChange={(e) => handleAnswer(e)}
+                />
               </Col>
             </Row>
             <Row>
               <Col>
                 <p>{answers[2]}</p>
+                <Form.Check
+                  type="checkbox"
+                  checked={false}
+                  id="2"
+                  onChange={(e) => handleAnswer(e)}
+                />
               </Col>
               <Col>
                 <p>{answers[3]}</p>
+                <Form.Check
+                  type="checkbox"
+                  checked={false}
+                  id="3"
+                  onChange={(e) => handleAnswer(e)}
+                />
               </Col>
             </Row>
           </>
@@ -71,6 +91,8 @@ function Questions({
         selectNextQuestion={selectNextQuestion}
         selectPreviousQuestion={selectPreviousQuestion}
         setSubmit={setSubmit}
+        currentQuestion={currentQuestion}
+        questionsLength={questionsLength}
       />
     </div>
   );

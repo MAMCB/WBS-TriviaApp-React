@@ -1,4 +1,4 @@
-const Buttons = ({ selectNextQuestion, selectPreviousQuestion, setSubmit }) => {
+const Buttons = ({ selectNextQuestion, selectPreviousQuestion, setSubmit,currentQuestion,questionsLength }) => {
   const handlePrevious = () => {
     selectPreviousQuestion();
   };
@@ -13,9 +13,15 @@ const Buttons = ({ selectNextQuestion, selectPreviousQuestion, setSubmit }) => {
 
   return (
     <>
-      <button onClick={handlePrevious}>Previous</button>
-      <button onClick={handleNext}>Next</button>
-      <button onClick={handleSubmit}>Submit</button>
+      {!currentQuestion === 0 && (
+        <button onClick={handlePrevious}>Previous</button>
+      )}
+      {currentQuestion < questionsLength - 1 && (
+        <button onClick={handleNext}>Next</button>
+      )}
+      {currentQuestion === questionsLength - 1 && (
+        <button onClick={handleSubmit}>Submit</button>
+      )}
     </>
   );
 };

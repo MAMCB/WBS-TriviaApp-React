@@ -108,6 +108,8 @@ const setSubmit = ()=>{
           setAnswers={setAnswers}
           userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}
+          currentQuestion={currentQuestion} 
+          questionsLength={questions.length} 
          
         />
       ) : (
