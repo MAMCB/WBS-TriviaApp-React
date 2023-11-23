@@ -21,4 +21,5 @@ const Results = ({ questions, answers }) => {
     </>
   );
 };
+
 export default Results;

@@ -9,17 +9,6 @@ import CategoryGrid from './components/CategoryGrid'
 
 function App() {
   
-  const [questions,setQuestions] =useState([]);
-  const [answers,setAnswers] =useState([]);
-  
-  
-
-
-
-const submitAnswer=(answer)=>{
-  setAnswers([...answers,answer]);
-  
-}
 
 
   return (

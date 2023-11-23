@@ -5,12 +5,23 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 
+
 function CategoryGrid() {
   
   const [isResult, setIsResult] = useState(false);
   const [isQuiz, setIsQuiz] = useState(false);
   const [category, setCategory] = useState('0');
   const [questions, setQuestions] = useState([]);
+  const [answers,setAnswers] = useState([]);
+  
+  
+
+
+
+  const submitAnswer=(answer)=>{
+    setAnswers([...answers,answer]);
+    
+  }
 
   // useEffect(() => {
   //   if(category !== '0'){
@@ -50,7 +61,7 @@ function CategoryGrid() {
 
   return (
     <>
-    {isResult?<p>place for result compoinent</p>
+    {isResult?<p>ssgsg</p>
     :isQuiz?<p>place for questions component</p>
     :<><h1 className='mb-3'>Choose your category</h1>
           <Row xs={1} md={3} xl={4} xxl={5} className="g-4">
