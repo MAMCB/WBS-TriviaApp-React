@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import FinalPage from './FinalPage';
+import Questions from './Questions';
 
 
 
@@ -15,6 +16,7 @@ function CategoryGrid() {
   const [category, setCategory] = useState('0');
   const [questions, setQuestions] = useState([]);
   const [answers,setAnswers] = useState([]);
+  const[currentQuestion,setCurrentQuestion]=useState(0);
   
   
 
@@ -55,6 +57,14 @@ function CategoryGrid() {
 //   console.log(questions);
 //  }, [questions])
 
+const selectNextQuestion=()=>{
+  setCurrentQuestion(currentQuestion + 1);
+  }
+
+  const selectPreviousQuestion = () => {
+    setCurrentQuestion(currentQuestion - 1);
+}
+
 
   const CardHandler = (e) => {
     setIsQuiz(true);
@@ -63,24 +73,41 @@ function CategoryGrid() {
 
   return (
     <>
-    {isResult?<FinalPage answers={answers} questions={questions}/>
-    :isQuiz?<p>place for questions component</p>
-    :<><h1 className='mb-3'>Choose your category</h1>
+      {isResult ? (
+        <FinalPage answers={answers} questions={questions} />
+      ) : isQuiz ? (
+        <Questions
+          question={[...questions][currentQuestion]}
+          selectNextQuestion={selectNextQuestion}
+          selectPreviousQuestion={selectPreviousQuestion}
+        />
+      ) : (
+        <>
+          <h1 className="mb-3">Choose your category</h1>
           <Row xs={1} md={3} xl={4} xxl={5} className="g-4">
-            {categories.map(categoryCard => (
+            {categories.map((categoryCard) => (
               <Col key={categoryCard.value}>
-                <Card id={categoryCard.value} className='card-category' onClick={CardHandler}>
-                  <Card.Img variant="top" className='category-img' src={categoryCard.img} />
+                <Card
+                  id={categoryCard.value}
+                  className="card-category"
+                  onClick={CardHandler}
+                >
+                  <Card.Img
+                    variant="top"
+                    className="category-img"
+                    src={categoryCard.img}
+                  />
                   <Card.Body>
                     <Card.Title>{categoryCard.category}</Card.Title>
                   </Card.Body>
                 </Card>
               </Col>
             ))}
-          </Row></>
-    }
+          </Row>
+        </>
+      )}
     </>
-  )
+  );
 }
 
 export default CategoryGrid
