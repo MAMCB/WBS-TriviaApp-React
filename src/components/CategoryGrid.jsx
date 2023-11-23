@@ -4,6 +4,8 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import FinalPage from './FinalPage';
+
 
 
 function CategoryGrid() {
@@ -61,7 +63,7 @@ function CategoryGrid() {
 
   return (
     <>
-    {isResult?<p>ssgsg</p>
+    {isResult?<FinalPage answers={answers} questions={questions}/>
     :isQuiz?<p>place for questions component</p>
     :<><h1 className='mb-3'>Choose your category</h1>
           <Row xs={1} md={3} xl={4} xxl={5} className="g-4">

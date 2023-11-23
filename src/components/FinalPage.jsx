@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-const Results = ({ questions, answers }) => {
+const FinalPage = ({ questions, answers }) => {
   const qaPairs = [];
 
   for (let i = 0; i < questions.length; i++) {
@@ -21,5 +21,4 @@ const Results = ({ questions, answers }) => {
     </>
   );
 };
-
-export default Results;
+export default FinalPage;
