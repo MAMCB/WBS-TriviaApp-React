@@ -1,5 +1,6 @@
 import { useState,useEffect } from 'react'
 import Results from './Components/Results';
+import { v4 as uuidv4 } from "uuid";
 import axios from 'axios';
 import _ from "lodash";
 
@@ -9,16 +10,22 @@ function App() {
   const [complete, setComplete] = useState(false);
   const [questions,setQuestions] =useState([]);
   const [answers,setAnswers] =useState([]);
-  const [category,setCategory] = useState(1);
+  const [category,setCategory] = useState(16);
   
-
+  // useEffect(()=>{
+  //   fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setQuestions(data.results))
+  //     .catch((error) => console.error(error));
+  // },[category])
+  
 useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `https://opentdb.com/api.php?amount=10&category=21`
+        `https://opentdb.com/api.php?amount=10&category=${category}`
       );
-      setQuestions(response.data);
+      setQuestions(response.data.results);
     } catch (error) {
       if (error.response && error.response.status === 429) {
         const retryAfter =
@@ -42,9 +49,18 @@ useEffect(() => {
   delayedFetch();
 }, [category]);
 
+console.log(questions);
+
+
+const submitAnswer=(answer)=>{
+  setAnswers([...answers,answer]);
+  
+}
+
+
   return (
     <>
-    {complete?<Results questions={questions} answers={answers}/>:questions.length>0?<p>Start first question</p>:<p>Show landing page</p>}
+    {complete?<Results questions={questions} answers={answers}/>:questions.length>0?questions.map((question)=><p key={uuidv4()}>{question.question}</p>):<p>Show landing page</p>}
       
     </>
   )
