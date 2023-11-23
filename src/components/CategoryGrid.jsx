@@ -15,7 +15,8 @@ function CategoryGrid() {
   const [isQuiz, setIsQuiz] = useState(false);
   const [category, setCategory] = useState('0');
   const [questions, setQuestions] = useState([]);
-  const [answers,setAnswers] = useState([]);
+  const [answers,setAnswers] = useState([]); //ANSWERS FOR FORM
+  const [userAnswers, setUserAnswers] = useState([]); //USER ANSWERS
   const[currentQuestion,setCurrentQuestion]=useState(0);
   
   
@@ -27,13 +28,25 @@ function CategoryGrid() {
     
   }
 
+  useEffect(() => {
+    if(category !== '0'){
+      fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
+      .then(res => res.json())
+      .then(data =>
+        setTimeout(() => {
+          setQuestions(data.results);
+        }, 1000),
+      )
+      .catch(error => console.error(error));
+    }
+  }, [category]);
+
   // useEffect(() => {
   //   if(category !== '0'){
-  //     fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
-  //     .then(res => res.json())
+  //     axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
   //     .then(data =>
   //       setTimeout(() => {
-  //         setQuestions(data);
+  //         setQuestions(data.results);
   //       }, 1000),
   //     )
   //     .catch(error => console.error(error));
@@ -41,21 +54,28 @@ function CategoryGrid() {
   // }, [category]);
 
   useEffect(() => {
-    if(category !== '0'){
-      axios.get(`https://opentdb.com/api.php?amount=10&category=${category}`)
-      .then(data =>
-        setTimeout(() => {
-          setQuestions(data);
-        }, 1000),
-      )
-      .catch(error => console.error(error));
+   const answersArr = questions.map(question => {
+     const answers = shuffleAnswers(question.correct_answer, question.incorrect_answers);
+     return answers;
+    })
+  setAnswers(answersArr); 
+  }, [questions])
+
+  const shuffleAnswers = (correctAnswer, incorrectAnswers) => {
+    const allAnswers = [correctAnswer, ...incorrectAnswers];
+
+    // Fisher-Yates shuffle algorithm
+    for (let i = allAnswers.length - 1; i > 0; i--) {
+     const j = Math.floor(Math.random() * (i + 1));
+     [allAnswers[i], allAnswers[j]] = [allAnswers[j], allAnswers[i]];
     }
-  }, [category]);
+    return allAnswers;};
 
 
-//  useEffect(() => {
-//   console.log(questions);
-//  }, [questions])
+ useEffect(() => {
+  console.log('11111', questions);
+  console.log([...questions][currentQuestion]);
+ }, [questions])
 
 const selectNextQuestion=()=>{
   setCurrentQuestion(currentQuestion + 1);
@@ -65,21 +85,30 @@ const selectNextQuestion=()=>{
     setCurrentQuestion(currentQuestion - 1);
 }
 
+const setSubmit = ()=>{
+  setIsResult(true);
+}
+
 
   const CardHandler = (e) => {
     setIsQuiz(true);
     setCategory(e.currentTarget.id);
   }
-
+  
   return (
     <>
       {isResult ? (
         <FinalPage answers={answers} questions={questions} />
-      ) : isQuiz ? (
+      ) : isQuiz && questions.length > 0 ? (
         <Questions
           question={[...questions][currentQuestion]}
           selectNextQuestion={selectNextQuestion}
           selectPreviousQuestion={selectPreviousQuestion}
+          answers={[...answers][currentQuestion]}
+          setAnswers={setAnswers}
+          userAnswers={userAnswers}
+          setUserAnswers={setUserAnswers}
+         
         />
       ) : (
         <>
