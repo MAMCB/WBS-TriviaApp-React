@@ -12,10 +12,7 @@ function Questions({
   selectPreviousQuestion,
   answers,
   setAnswers,
-  userAnswers,
   setUserAnswers,
-  selectNextQuestion,
-  selectPreviousQuestion,
   setSubmit,
   userAnswers,
   currentQuestion,
@@ -46,7 +43,7 @@ function Questions({
           <>
             <Row>
               <Col>
-                <p>{answers[0]}</p>
+                {answers > 0 && <p>{answers[0]}</p>}
                 <Form.Check
                   type="checkbox"
                   checked={false}

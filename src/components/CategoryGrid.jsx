@@ -23,11 +23,7 @@ function CategoryGrid() {
 
 
 
-  const submitAnswer=(answer)=>{
-    setAnswers([...answers,answer]);
-    
-  }
-
+ 
   useEffect(() => {
     if(category !== '0'){
       fetch(`https://opentdb.com/api.php?amount=10&category=${category}`)
@@ -89,6 +85,11 @@ const setSubmit = ()=>{
   setIsResult(true);
 }
 
+ const submitAnswer = (answer) => {
+   setUserAnswers([...userAnswers, answer]);
+ };
+
+
 
   const CardHandler = (e) => {
     setIsQuiz(true);
@@ -108,9 +109,8 @@ const setSubmit = ()=>{
           setAnswers={setAnswers}
           userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}
-          currentQuestion={currentQuestion} 
-          questionsLength={questions.length} 
-         
+          currentQuestion={currentQuestion}
+          questionsLength={questions.length}
         />
       ) : (
         <>
