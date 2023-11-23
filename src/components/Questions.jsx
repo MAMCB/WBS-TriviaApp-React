@@ -1,7 +1,7 @@
 import React from 'react'
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Form } from 'react-bootstrap';
+import { Form, Stack } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import Buttons from './Buttons';
 
@@ -18,9 +18,7 @@ function Questions({
   currentQuestion,
   questionsLength,
 }) {
-  useEffect(() => {
-    console.log(question);
-  }, []);
+
 
   function unEscape(htmlStr) {
     htmlStr = htmlStr.replace(/&lt;/g, "<");
@@ -28,70 +26,41 @@ function Questions({
     htmlStr = htmlStr.replace(/&quot;/g, '"');
     htmlStr = htmlStr.replace(/&#039;/g, "'");
     htmlStr = htmlStr.replace(/&amp;/g, "&");
+    htmlStr = htmlStr.replace(/&eacute;/g, "é");
     return htmlStr;
   }
 
   function handleAnswer(e) {
     setUserAnswers([...userAnswers, answers[e.id]]);
+    setIsAnswered(!isAnswered);
   }
 
   return (
-    <div className="container m-5">
-      <h5>{unEscape(question.question)}</h5>
+      <>
+      <h5 className='question'>{unEscape(question.question)}</h5>
       <Form>
-        {
-          <>
-            <Row>
-              <Col>
-                {answers > 0 && <p>{answers[0]}</p>}
+      {<>
+      <Stack gap={3} direction="horizontal" className='justify-content-md-center'>
+        <Row md={2} className="g-4 w-75">
+          {answers.map((answer, index) => (
+            <Stack gap={3} direction="horizontal">
                 <Form.Check
                   type="checkbox"
                   checked={false}
-                  id="0"
-                  onChange={(e) => handleAnswer(e)}
-                />
-              </Col>
-              <Col>
-                <p>{answers[1]}</p>
-                <Form.Check
-                  type="checkbox"
-                  checked={false}
-                  id="1"
-                  onChange={(e) => handleAnswer(e)}
-                />
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p>{answers[2]}</p>
-                <Form.Check
-                  type="checkbox"
-                  checked={false}
-                  id="2"
-                  onChange={(e) => handleAnswer(e)}
-                />
-              </Col>
-              <Col>
-                <p>{answers[3]}</p>
-                <Form.Check
-                  type="checkbox"
-                  checked={false}
-                  id="3"
-                  onChange={(e) => handleAnswer(e)}
-                />
-              </Col>
-            </Row>
-          </>
-        }
-      </Form>
-      <Buttons
+                  id={index}
+                  onChange={(e) => handleAnswer(e)} />
+                <p>{unEscape(answer)}</p>
+              </Stack>
+          ))}
+        </Row>
+        </Stack>
+      </>}
+    </Form><Buttons
         selectNextQuestion={selectNextQuestion}
         selectPreviousQuestion={selectPreviousQuestion}
         setSubmit={setSubmit}
         currentQuestion={currentQuestion}
-        questionsLength={questionsLength}
-      />
-    </div>
+        questionsLength={questionsLength} /></>
   );
 }
 

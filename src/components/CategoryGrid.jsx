@@ -15,7 +15,7 @@ function CategoryGrid() {
   const [isQuiz, setIsQuiz] = useState(false);
   const [category, setCategory] = useState('0');
   const [questions, setQuestions] = useState([]);
-  const [answers,setAnswers] = useState([]); //ANSWERS FOR FORM
+  const [answers, setAnswers] = useState([]); //ANSWERS FOR FORM
   const [userAnswers, setUserAnswers] = useState([]); //USER ANSWERS
   const[currentQuestion,setCurrentQuestion]=useState(0);
   
@@ -54,7 +54,7 @@ function CategoryGrid() {
      const answers = shuffleAnswers(question.correct_answer, question.incorrect_answers);
      return answers;
     })
-    console.log(answersArr);//returning empty array
+    console.log("2222", answersArr); 
   setAnswers(answersArr); 
   }, [questions])
 
@@ -70,8 +70,7 @@ function CategoryGrid() {
 
 
  useEffect(() => {
-  console.log('11111', questions);
-  console.log([...questions][currentQuestion]);
+  console.log('11111', answers);
  }, [questions])
 
 const selectNextQuestion=()=>{
@@ -101,7 +100,7 @@ const setSubmit = ()=>{
     <>
       {isResult ? (
         <FinalPage answers={answers} questions={questions} />
-      ) : isQuiz && questions.length > 0 ? (
+      ) : isQuiz && questions.length > 0 && answers.length > 0 ? (
         <Questions
           question={[...questions][currentQuestion]}
           selectNextQuestion={selectNextQuestion}
