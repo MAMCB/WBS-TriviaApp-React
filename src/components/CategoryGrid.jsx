@@ -54,6 +54,7 @@ function CategoryGrid() {
      const answers = shuffleAnswers(question.correct_answer, question.incorrect_answers);
      return answers;
     })
+    console.log(answersArr);//returning empty array
   setAnswers(answersArr); 
   }, [questions])
 
@@ -105,7 +106,7 @@ const setSubmit = ()=>{
           question={[...questions][currentQuestion]}
           selectNextQuestion={selectNextQuestion}
           selectPreviousQuestion={selectPreviousQuestion}
-          answers={[...answers][currentQuestion]}
+          answers={[...answers][currentQuestion]}//answers are empty array
           setAnswers={setAnswers}
           userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}
