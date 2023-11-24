@@ -1,10 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 
-const FinalPage = ({ questions, answers }) => {
+const FinalPage = ({ questions, answers, rightAnswers }) => {
   console.log(answers);
+  console.log("FinalAnna" + questions);
   // const qaPairs = [];
-  const[score,setScore]=useState(0);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const correctAnswers = answers.filter((answer, index) => {
@@ -16,7 +17,7 @@ const FinalPage = ({ questions, answers }) => {
   }, [questions, answers]);
 
   // for (let i = 0; i < questions.length; i++) {
-    
+
   //   qaPairs.push({
   //     question: questions[i].question,
   //     answer: answers[i].answer,
@@ -37,6 +38,41 @@ const FinalPage = ({ questions, answers }) => {
           {e.question + " " + answers[index].answer}
         </p>
       ))}
+
+      {/*Accordian variant */}
+      <div className="accordion" id="accordionFinalPage">
+        {questions.map((e, index) => (
+          <div className="accordion-item" key={uuidv4()}>
+            <h3 className="accordion-header" id={`heading${index}`}>
+              <button
+                className={
+                  e.correct_answer === answers[index].answer
+                    ? "correct accordion-button"
+                    : "incorrect accordion-button"
+                }
+                id={`heading${index}`}
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`collapse${index}`}
+                aria-expanded="true"
+                aria-controls={`collapse${index}`}
+              >
+                Question {index + 1} <br />
+                {e.question}
+              </button>
+            </h3>
+            <div
+              className="accordion-collapse collapse show"
+              id={`collapse${index}`}
+              aria-labelledby={`heading${index}`}
+              data-bs-parent="#accordionFinalPage"
+            >
+              <p>Your answer: {answers[index].answer}</p>
+              <p>Correct answer: {e.correct_answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </>
   );
 };
