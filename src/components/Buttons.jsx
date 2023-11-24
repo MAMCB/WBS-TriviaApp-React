@@ -36,7 +36,9 @@ const Buttons = ({
   return (
     <>
       {currentQuestion !== 0 && (
-        <button className="previous" onClick={handlePrevious}>Previous</button>
+        <button className="previous" onClick={handlePrevious}>
+          Previous
+        </button>
       )}
       {currentQuestion < questionsLength - 1 && (
         <button
@@ -49,7 +51,7 @@ const Buttons = ({
       )}
       {currentQuestion === questionsLength - 1 && (
         <button
-          className="submit"
+          className={[...isChoose].includes(true)&&"submit"}
           onClick={handleSubmit}
           disabled={![...isChoose].includes(true) ? true : false}
         >
