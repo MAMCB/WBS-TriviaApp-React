@@ -100,7 +100,8 @@ function Questions({
         setSubmit={setSubmit}
         currentQuestion={currentQuestion}
         questionsLength={questionsLength} 
-        setIsChoose={setIsChoose}/></>
+        setIsChoose={setIsChoose}
+        isChoose={isChoose}/></>
   );
 }
 
