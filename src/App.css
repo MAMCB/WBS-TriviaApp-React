@@ -29,3 +29,16 @@
   background-color: red;
   color:white;
 }
+
+button{
+  margin:1rem;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
+  background-color: aquamarine;
+}
+
+.submit{
+  background-color: rgb(104, 25, 177);
+  color:white;
+}
+
