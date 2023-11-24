@@ -31,6 +31,7 @@ function Questions({
     htmlStr = htmlStr.replace(/&eacute;/g, "é");
     htmlStr = htmlStr.replace(/&ocirc;/g, "ô");
     htmlStr = htmlStr.replace(/&pi;/g, "π");
+    htmlStr = htmlStr.replace(/&ntilde;/g, "ñ");
     return htmlStr;
   }
 
