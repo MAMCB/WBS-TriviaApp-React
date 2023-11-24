@@ -16,3 +16,16 @@
   cursor: pointer;
 }
 
+.question{
+  max-width: 820px;
+}
+
+.correct{
+  background-color: green;
+  color:white;
+}
+
+.incorrect{
+  background-color: red;
+  color:white;
+}

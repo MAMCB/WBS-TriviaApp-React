@@ -3,6 +3,8 @@ import './App.css'
 import CategoryGrid from './components/CategoryGrid'
 
 function App() {
+  
+
 
   return (
     <>
