@@ -105,12 +105,13 @@ const setSubmit = ()=>{
           question={[...questions][currentQuestion]}
           selectNextQuestion={selectNextQuestion}
           selectPreviousQuestion={selectPreviousQuestion}
-          answers={[...answers][currentQuestion]} 
+          answers={[...answers][currentQuestion]}
           setAnswers={setAnswers}
           userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}
           currentQuestion={currentQuestion}
           questionsLength={questions.length}
+          setSubmit={setSubmit}
         />
       ) : (
         <>
