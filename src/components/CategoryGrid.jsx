@@ -99,7 +99,13 @@ const setSubmit = ()=>{
   return (
     <>
       {isResult ? (
-        <FinalPage answers={answers} questions={questions} />
+        // <FinalPage answers={answers} questions={questions} />
+        <>
+          <p>Here should be results</p><>
+            {userAnswers.map(answer => (
+              <p>{answer.answer}</p>
+            ))}
+          </></>
       ) : isQuiz && questions.length > 0 && answers.length > 0 ? (
         <Questions
           question={[...questions][currentQuestion]}
