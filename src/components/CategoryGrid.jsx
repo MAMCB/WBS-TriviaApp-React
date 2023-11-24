@@ -105,7 +105,7 @@ const setSubmit = ()=>{
           question={[...questions][currentQuestion]}
           selectNextQuestion={selectNextQuestion}
           selectPreviousQuestion={selectPreviousQuestion}
-          answers={[...answers][currentQuestion]}//answers are empty array
+          answers={[...answers][currentQuestion]} 
           setAnswers={setAnswers}
           userAnswers={userAnswers}
           setUserAnswers={setUserAnswers}

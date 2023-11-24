@@ -30,9 +30,31 @@ function Questions({
     return htmlStr;
   }
 
+
+  //TO DO, I have to clean checkboxes after the button have pushed, but I can't get them
   function handleAnswer(e) {
-    setUserAnswers([...userAnswers, answers[e.id]]);
-    setIsAnswered(!isAnswered);
+    const answerThis = [...userAnswers].filter(answer => {
+      return answer.id === currentQuestion;
+    })
+    if(answerThis.length > 0){
+      e.target.checked = false;
+
+      if(!e.target.checked && answerThis[0].answerId === e.currentTarget.id){
+        const deleteAnswer = [...userAnswers].filter(answer => {
+          return answer.id !== currentQuestion;
+        })
+        setUserAnswers(deleteAnswer);
+      }
+    } else {
+      if(e.target.checked){
+        const newAnswer = {
+          id: currentQuestion,
+          answerId: e.currentTarget.id,
+          answer: answers[e.currentTarget.id]
+        }
+        setUserAnswers([...userAnswers, newAnswer]);
+      }
+      }
   }
 
   return (
@@ -43,11 +65,10 @@ function Questions({
       <Stack gap={3} direction="horizontal" className='justify-content-md-center'>
         <Row md={2} className="g-4 w-75">
           {answers.map((answer, index) => (
-            <Stack gap={3} direction="horizontal">
+            <Stack gap={3} direction="horizontal" key={index}>
                 <Form.Check
                   type="checkbox"
-                  checked={false}
-                  id={index}
+                  id={`${index}`}
                   onChange={(e) => handleAnswer(e)} />
                 <p>{unEscape(answer)}</p>
               </Stack>
