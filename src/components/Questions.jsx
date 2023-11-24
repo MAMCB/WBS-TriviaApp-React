@@ -29,6 +29,7 @@ function Questions({
     htmlStr = htmlStr.replace(/&#039;/g, "'");
     htmlStr = htmlStr.replace(/&amp;/g, "&");
     htmlStr = htmlStr.replace(/&eacute;/g, "é");
+    htmlStr = htmlStr.replace(/&ocirc;/g, "ô");
     return htmlStr;
   }
 
