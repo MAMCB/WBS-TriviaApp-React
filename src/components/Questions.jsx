@@ -19,6 +19,8 @@ function Questions({
   questionsLength,
 }) {
 
+  const [isChoose, setIsChoose] = useState([false, false, false, false]);
+
 
   function unEscape(htmlStr) {
     htmlStr = htmlStr.replace(/&lt;/g, "<");
@@ -27,11 +29,14 @@ function Questions({
     htmlStr = htmlStr.replace(/&#039;/g, "'");
     htmlStr = htmlStr.replace(/&amp;/g, "&");
     htmlStr = htmlStr.replace(/&eacute;/g, "é");
+    htmlStr = htmlStr.replace(/&ocirc;/g, "ô");
+    htmlStr = htmlStr.replace(/&pi;/g, "π");
+    htmlStr = htmlStr.replace(/&ntilde;/g, "ñ");
+    htmlStr = htmlStr.replace(/&euml;/g, "ë");
     return htmlStr;
   }
 
 
-  //TO DO, I have to clean checkboxes after the button have pushed, but I can't get them
   function handleAnswer(e) {
     const answerThis = [...userAnswers].filter(answer => {
       return answer.id === currentQuestion;
@@ -40,21 +45,35 @@ function Questions({
       e.target.checked = false;
 
       if(!e.target.checked && answerThis[0].answerId === e.currentTarget.id){
+
         const deleteAnswer = [...userAnswers].filter(answer => {
           return answer.id !== currentQuestion;
         })
         setUserAnswers(deleteAnswer);
+
+        const newChoose = isChoose.map((ele, index) => {
+          if(index == answerThis[0].answerId){
+            ele = false;
+          }
+          return ele;
+        })
+        setIsChoose(newChoose);
       }
     } else {
-      if(e.target.checked){
         const newAnswer = {
           id: currentQuestion,
           answerId: e.currentTarget.id,
           answer: answers[e.currentTarget.id]
         }
         setUserAnswers([...userAnswers, newAnswer]);
-      }
-      }
+        const newChoose = isChoose.map((ele, index) => {
+          if(index == newAnswer.answerId){
+            ele = true;
+          }
+          return ele;
+        })
+        setIsChoose(newChoose);
+      }    
   }
 
   return (
@@ -68,6 +87,7 @@ function Questions({
             <Stack gap={3} direction="horizontal" key={index}>
                 <Form.Check
                   type="checkbox"
+                  checked={isChoose[index]}
                   id={`${index}`}
                   onChange={(e) => handleAnswer(e)} />
                 <p>{unEscape(answer)}</p>
@@ -81,7 +101,9 @@ function Questions({
         selectPreviousQuestion={selectPreviousQuestion}
         setSubmit={setSubmit}
         currentQuestion={currentQuestion}
-        questionsLength={questionsLength} /></>
+        questionsLength={questionsLength} 
+        setIsChoose={setIsChoose}
+        isChoose={isChoose}/></>
   );
 }
 
