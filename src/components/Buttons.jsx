@@ -1,10 +1,11 @@
-const Buttons = ({ selectNextQuestion, selectPreviousQuestion, setSubmit,currentQuestion,questionsLength }) => {
+const Buttons = ({ selectNextQuestion, selectPreviousQuestion, setSubmit,currentQuestion,questionsLength,setIsChoose }) => {
   const handlePrevious = () => {
     selectPreviousQuestion();
   };
 
   const handleNext = () => {
     selectNextQuestion();
+    setIsChoose([false, false, false, false])
   };
 
   const handleSubmit = ()=>{
