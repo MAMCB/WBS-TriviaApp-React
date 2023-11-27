@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 import CategoryGrid from './components/CategoryGrid'
+import {Routes, Route } from 'react-router-dom';
 
 function App() {
   
@@ -9,6 +10,7 @@ function App() {
   return (
     <>
    <CategoryGrid />
+  
    </>
   )
 }

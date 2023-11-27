@@ -4,6 +4,10 @@ import Row from "react-bootstrap/Row";
 import { Form, Stack } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import Buttons from './Buttons';
+import { decode } from "html-entities";
+
+
+
 
 
 function Questions({
@@ -22,19 +26,19 @@ function Questions({
   const [isChoose, setIsChoose] = useState([false, false, false, false]);
 
 
-  function unEscape(htmlStr) {
-    htmlStr = htmlStr.replace(/&lt;/g, "<");
-    htmlStr = htmlStr.replace(/&gt;/g, ">");
-    htmlStr = htmlStr.replace(/&quot;/g, '"');
-    htmlStr = htmlStr.replace(/&#039;/g, "'");
-    htmlStr = htmlStr.replace(/&amp;/g, "&");
-    htmlStr = htmlStr.replace(/&eacute;/g, "é");
-    htmlStr = htmlStr.replace(/&ocirc;/g, "ô");
-    htmlStr = htmlStr.replace(/&pi;/g, "π");
-    htmlStr = htmlStr.replace(/&ntilde;/g, "ñ");
-    htmlStr = htmlStr.replace(/&euml;/g, "ë");
-    return htmlStr;
-  }
+  // function unEscape(htmlStr) {
+  //   htmlStr = htmlStr.replace(/&lt;/g, "<");
+  //   htmlStr = htmlStr.replace(/&gt;/g, ">");
+  //   htmlStr = htmlStr.replace(/&quot;/g, '"');
+  //   htmlStr = htmlStr.replace(/&#039;/g, "'");
+  //   htmlStr = htmlStr.replace(/&amp;/g, "&");
+  //   htmlStr = htmlStr.replace(/&eacute;/g, "é");
+  //   htmlStr = htmlStr.replace(/&ocirc;/g, "ô");
+  //   htmlStr = htmlStr.replace(/&pi;/g, "π");
+  //   htmlStr = htmlStr.replace(/&ntilde;/g, "ñ");
+  //   htmlStr = htmlStr.replace(/&euml;/g, "ë");
+  //   return htmlStr;
+  // }
 
 
   function handleAnswer(e) {
@@ -79,33 +83,43 @@ function Questions({
   }
 
   return (
-      <>
-      <h5 className='question'>{unEscape(question.question)}</h5>
+    <>
+      <h5 className="question">{decode(question.question)}</h5>
       <Form>
-      {<>
-      <Stack gap={3} direction="horizontal" className='justify-content-md-center'>
-        <Row md={2} className="g-4 w-75">
-          {answers.map((answer, index) => (
-            <Stack gap={3} direction="horizontal" key={index}>
-                <Form.Check
-                  type="checkbox"
-                  checked={isChoose[index]}
-                  id={`${index}`}
-                  onChange={(e) => handleAnswer(e)} />
-                <p>{unEscape(answer)}</p>
-              </Stack>
-          ))}
-        </Row>
-        </Stack>
-      </>}
-    </Form><Buttons
+        {
+          <>
+            <Stack
+              gap={3}
+              direction="horizontal"
+              className="justify-content-md-center"
+            >
+              <Row md={2} className="g-4 w-75">
+                {answers.map((answer, index) => (
+                  <Stack gap={3} direction="horizontal" key={index}>
+                    <Form.Check
+                      type="checkbox"
+                      checked={isChoose[index]}
+                      id={`${index}`}
+                      onChange={(e) => handleAnswer(e)}
+                    />
+                    <p>{decode(answer)}</p>
+                  </Stack>
+                ))}
+              </Row>
+            </Stack>
+          </>
+        }
+      </Form>
+      <Buttons
         selectNextQuestion={selectNextQuestion}
         selectPreviousQuestion={selectPreviousQuestion}
         setSubmit={setSubmit}
         currentQuestion={currentQuestion}
-        questionsLength={questionsLength} 
+        questionsLength={questionsLength}
         setIsChoose={setIsChoose}
-        isChoose={isChoose}/></>
+        isChoose={isChoose}
+      />
+    </>
   );
 }
 
