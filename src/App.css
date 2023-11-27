@@ -21,23 +21,27 @@
 }
 
 .correct{
-  background-color: green;
-  color:white;
+  background-color: green  !important;
+  color:white !important;
 }
 
 .incorrect{
-  background-color: red;
-  color:white;
+  background-color: red  !important;
+  color:white !important;
 }
 
-button{
-  margin:1rem;
+
+.previous,.next{
+ margin:1rem;
   border-radius: 10px;
   padding: 0.5rem 0.8rem;
   background-color: aquamarine;
 }
 
 .submit{
+  margin:1rem;
+  border-radius: 10px;
+  padding: 0.5rem 0.8rem;
   background-color: rgb(104, 25, 177);
   color:white;
 }

@@ -51,7 +51,7 @@ const Buttons = ({
       )}
       {currentQuestion === questionsLength - 1 && (
         <button
-          className={[...isChoose].includes(true)&&"submit"}
+          className={[...isChoose].includes(true)?"submit":"next"}
           onClick={handleSubmit}
           disabled={![...isChoose].includes(true) ? true : false}
         >

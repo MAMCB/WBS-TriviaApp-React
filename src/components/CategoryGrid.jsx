@@ -84,9 +84,15 @@ const setSubmit = ()=>{
   setIsResult(true);
 }
 
-//  const submitAnswer = (answer) => {
-//    setUserAnswers([...userAnswers, answer]);
-//  };
+const resetMainPage = ()=>{
+  setIsResult(false);
+  setIsQuiz(false);
+  setCurrentQuestion(0);
+  setCategory("0");
+  setQuestions([]);
+  setAnswers([]);
+  setUserAnswers([]);
+}
 
 
 
@@ -98,7 +104,12 @@ const setSubmit = ()=>{
   return (
     <>
       {isResult ? (
-        <FinalPage answers={userAnswers} questions={questions} rightAnswers={answers} />
+        <FinalPage
+          answers={userAnswers}
+          questions={questions}
+         
+          resetMainPage={resetMainPage}
+        />
       ) : isQuiz && questions.length > 0 && answers.length > 0 ? (
         <Questions
           question={[...questions][currentQuestion]}

@@ -1,14 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { decode } from "html-entities";
 
-const FinalPage = ({ questions, answers, rightAnswers }) => {
+const FinalPage = ({ questions, answers, resetMainPage }) => {
   console.log(answers);
   // const qaPairs = [];
   const [score, setScore] = useState(0);
@@ -19,6 +14,10 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
     const correctAnswers = answers.filter((answer, index) => {
       return answer.answer === questions[index].correct_answer;
     });
+    correctAnswers.forEach(element => {decode(element)
+      
+    });
+    
     console.log(correctAnswers);
 
     setScore(correctAnswers.length * (100 / questions.length));
@@ -39,8 +38,8 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
       return newArray;
     });
   }
-  function startNewQuiz() {
-    console.log("clicked");
+  function handleClick() {
+    resetMainPage();
   }
 
   return (
@@ -78,7 +77,7 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
                 onClick={() => toggleItem(index)}
               >
                 Question {index + 1} <br />
-                {e.question}
+                {decode(e.question)}
               </button>
             </h3>
             <div
@@ -91,13 +90,13 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
               aria-labelledby={`heading${index}`}
               data-bs-parent="#accordionFinalPage"
             >
-              <p>Your answer: {answers[index].answer}</p>
+              <p>Your answer: {decode(answers[index].answer)}</p>
               <p>Correct answer: {e.correct_answer}</p>
             </div>
           </div>
         ))}
       </div>
-      <Button variant="primary" onClick={startNewQuiz}>
+      <Button variant="primary" onClick={handleClick}>
         Start new Quiz
       </Button>
     </>
