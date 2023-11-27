@@ -57,6 +57,7 @@ function Questions({
           }
           return ele;
         })
+        
         setIsChoose(newChoose);
       }
     } else {
@@ -72,6 +73,7 @@ function Questions({
           }
           return ele;
         })
+        
         setIsChoose(newChoose);
       }    
   }
