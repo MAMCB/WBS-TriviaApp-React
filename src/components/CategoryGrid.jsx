@@ -53,10 +53,11 @@ function CategoryGrid() {
    const answersArr = questions.map(question => {
      const answers = shuffleAnswers(question.correct_answer, question.incorrect_answers);
      return answers;
-    })
-    
+   },)
+  
   setAnswers(answersArr); 
   }, [questions])
+
 
   const shuffleAnswers = (correctAnswer, incorrectAnswers) => {
     const allAnswers = [correctAnswer, ...incorrectAnswers];
@@ -97,7 +98,7 @@ const setSubmit = ()=>{
   return (
     <>
       {isResult ? (
-        <FinalPage answers={userAnswers} questions={questions} />
+        <FinalPage answers={userAnswers} questions={questions} rightAnswers={answers} />
       ) : isQuiz && questions.length > 0 && answers.length > 0 ? (
         <Questions
           question={[...questions][currentQuestion]}

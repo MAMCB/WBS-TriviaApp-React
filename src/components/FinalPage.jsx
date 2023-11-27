@@ -1,11 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
+import Button from "react-bootstrap/Button";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
 
 const FinalPage = ({ questions, answers, rightAnswers }) => {
   console.log(answers);
-  console.log("FinalAnna" + questions);
   // const qaPairs = [];
   const [score, setScore] = useState(0);
+
+  const [togglesArr, setTogglesArr] = useState([]);
 
   useEffect(() => {
     const correctAnswers = answers.filter((answer, index) => {
@@ -24,11 +32,22 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
   //   });
   // }
 
+  function toggleItem(index) {
+    setTogglesArr((prevToggles) => {
+      const newArray = [...prevToggles];
+      newArray[index] = { id: index, status: !newArray[index]?.status };
+      return newArray;
+    });
+  }
+  function startNewQuiz() {
+    console.log("clicked");
+  }
+
   return (
     <>
       <h1>Your final results:</h1>
       <h2>Score:{score}%</h2>
-      {questions.map((e, index) => (
+      {/* {questions.map((e, index) => (
         <p
           className={
             e.correct_answer === answers[index].answer ? "correct" : "incorrect"
@@ -37,7 +56,7 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
         >
           {e.question + " " + answers[index].answer}
         </p>
-      ))}
+      ))} */}
 
       {/*Accordian variant */}
       <div className="accordion" id="accordionFinalPage">
@@ -54,15 +73,20 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target={`collapse${index}`}
-                aria-expanded="true"
+                aria-expanded={togglesArr[index]?.status ? "true" : "false"}
                 aria-controls={`collapse${index}`}
+                onClick={() => toggleItem(index)}
               >
                 Question {index + 1} <br />
                 {e.question}
               </button>
             </h3>
             <div
-              className="accordion-collapse collapse show"
+              className={
+                togglesArr[index]?.status
+                  ? "accordion-collapse collapse show"
+                  : "accordion-collapse collapse"
+              }
               id={`collapse${index}`}
               aria-labelledby={`heading${index}`}
               data-bs-parent="#accordionFinalPage"
@@ -73,6 +97,9 @@ const FinalPage = ({ questions, answers, rightAnswers }) => {
           </div>
         ))}
       </div>
+      <Button variant="primary" onClick={startNewQuiz}>
+        Start new Quiz
+      </Button>
     </>
   );
 };
