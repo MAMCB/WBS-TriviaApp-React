@@ -91,7 +91,7 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
               data-bs-parent="#accordionFinalPage"
             >
               <p>Your answer: {decode(answers[index].answer)}</p>
-              <p>Correct answer: {e.correct_answer}</p>
+              <p>Correct answer: {decode(e.correct_answer)}</p>
             </div>
           </div>
         ))}
