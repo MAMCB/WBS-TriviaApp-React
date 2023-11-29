@@ -54,7 +54,7 @@ function Level1() {
        const newUpdate = updatedCheckboxes.map((checkboxes, questionIndex) =>
          questionIndex === indexQuestion
            ? checkboxes.map((checkbox, checkboxIndex) =>
-               checkboxIndex !== parseInt(e.target.id) ? checkbox : !checkbox
+               checkboxIndex === parseInt(e.target.id) ? true : false
              )
            : checkboxes
        );
