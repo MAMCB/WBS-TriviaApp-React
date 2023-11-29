@@ -58,9 +58,12 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
       ))} */}
 
       {/*Accordian variant */}
-      <div className="accordion" id="accordionFinalPage">
+      <div
+        className="accordion w-50 d-flex flex-column mb-3  m-auto"
+        id="accordionFinalPage"
+      >
         {questions.map((e, index) => (
-          <div className="accordion-item" key={uuidv4()}>
+          <div className="accordion-item flex-fill" key={uuidv4()}>
             <h3 className="accordion-header" id={`heading${index}`}>
               <button
                 className={
@@ -96,7 +99,7 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
           </div>
         ))}
       </div>
-      <Button variant="primary" onClick={handleClick}>
+      <Button className="mt-4" variant="primary" onClick={handleClick}>
         Start new Quiz
       </Button>
     </>

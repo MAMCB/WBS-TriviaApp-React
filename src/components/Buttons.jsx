@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Button from 'react-bootstrap/Button';
 
 const Buttons = ({
   selectNextQuestion,
@@ -36,27 +37,29 @@ const Buttons = ({
   return (
     <>
       {currentQuestion !== 0 && (
-        <button className="previous" onClick={handlePrevious}>
+        <Button variant="primary" className="previous" onClick={handlePrevious}>
           Previous
-        </button>
+        </Button>
       )}
       {currentQuestion < questionsLength - 1 && (
-        <button
+        <Button
           className="next"
           onClick={handleNext}
           disabled={![...isChoose].includes(true) ? true : false}
+          variant="primary"
         >
           Next
-        </button>
+        </Button>
       )}
       {currentQuestion === questionsLength - 1 && (
-        <button
+        <Button
           className={[...isChoose].includes(true)?"submit":"next"}
           onClick={handleSubmit}
           disabled={![...isChoose].includes(true) ? true : false}
+          variant="primary"
         >
           Submit
-        </button>
+        </Button>
       )}
     </>
   );

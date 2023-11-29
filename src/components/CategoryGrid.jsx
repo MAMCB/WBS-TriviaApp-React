@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import FinalPage from './FinalPage';
 import Questions from './Questions';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
@@ -123,7 +124,7 @@ const resetMainPage = ()=>{
           questionsLength={questions.length}
           setSubmit={setSubmit}
         />
-      ) : (
+      ) : isQuiz?<Spinner animation="border" variant="primary" />: (
         <>
           <h1 className="mb-3">Choose your category</h1>
           <Row xs={1} md={3} xl={4} xxl={5} className="g-4">

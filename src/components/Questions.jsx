@@ -5,6 +5,7 @@ import { Form, Stack } from 'react-bootstrap';
 import { useState, useEffect } from 'react'
 import Buttons from './Buttons';
 import { decode } from "html-entities";
+import { Transition } from 'react-transition-group';
 
 
 
@@ -129,9 +130,10 @@ function handleAnswer(e) {
 
 
   return (
-    <>
-      <h5 className="question">{decode(question.question)}</h5>
-      <Form>
+    <
+      >
+      <div className='wrapperQuestions'>      <h5 className="question h1">{decode(question.question)}</h5>
+      <Form className='questionForm '>
         {
           <>
             <Stack
@@ -139,7 +141,7 @@ function handleAnswer(e) {
               direction="horizontal"
               className="justify-content-md-center"
             >
-              <Row md={2} className="g-4 w-75">
+              <Row md={2} className="g-4">
                 {answers.map((answer, index) => (
                   <Stack gap={3} direction="horizontal" key={index}>
                     <Form.Check
@@ -155,7 +157,8 @@ function handleAnswer(e) {
             </Stack>
           </>
         }
-      </Form>
+      </Form></div>
+
       <Buttons
         selectNextQuestion={selectNextQuestion}
         selectPreviousQuestion={selectPreviousQuestion}

@@ -1,6 +1,7 @@
 #root {
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -35,7 +36,7 @@
  margin:1rem;
   border-radius: 10px;
   padding: 0.5rem 0.8rem;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
 }
 
 .submit{
@@ -55,18 +56,79 @@ background: linear-gradient(90deg, rgba(69,115,250,1) 3%, rgba(104,25,177,1) 24%
 
 }
 
+.nav{
+  display: flex;
+  place-items: center;
+  padding: 0rem 1.5rem;
+  justify-content: space-between;
+  width: 100%;
+ background-color: #f4f5fe;
+  box-shadow: 2px 2px;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  height:5rem;
+}
+.nav>li{
+  font-size: 25px;
+  display: flex;
+  place-items: center;
+  height:100%;
+  
+}
 
+.nav-item{
+  text-decoration: none;
+  color:black;
+}
+
+.nav-link{
+  color:white !important;
+}
+
+
+.active{
+  background-color:#7e7883;
+  color:white;
+  border-radius: 10px;
+  height:100%;
+
+}
 
 
 #accordionFinalPage{
   margin: 20px;
+  
 }
 
-.active {
-  color: aqua;
-}
+
 
 .answersStack{
   display:flex;
   justify-content: space-evenly;
+}
+
+.wrapperQuestions {
+  margin: auto;
+  margin-top: 10%;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  font-size: 2rem;
+  /* align-items: center; */
+}
+
+.questionForm{
+  background-color: rgb(140, 213, 213);
+  border-radius: 25px;
+  border: 1px so;
+  margin: 20px;
+  padding: 20px;
+  box-shadow: 2px 15px 18px -5px #276873;
+}
+
+.home-img{
+  max-width: 100%;
+  height: auto;
 }
