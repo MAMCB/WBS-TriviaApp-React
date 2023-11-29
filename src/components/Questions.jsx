@@ -41,46 +41,92 @@ function Questions({
   // }
 
 
-  function handleAnswer(e) {
-    const answerThis = [...userAnswers].filter(answer => {
-      return answer.id === currentQuestion;
-    })
-    if(answerThis.length > 0){
-      e.target.checked = false;
+  // function handleAnswer(e) {
+  //   const answerThis = [...userAnswers].filter(answer => {
+  //     return answer.id === currentQuestion;
+  //   })
+  //   if(answerThis.length > 0){
+  //     e.target.checked = false;
 
-      if(!e.target.checked && answerThis[0].answerId === e.currentTarget.id){
+  //     if(!e.target.checked && answerThis[0].answerId === e.currentTarget.id){
 
-        const deleteAnswer = [...userAnswers].filter(answer => {
-          return answer.id !== currentQuestion;
-        })
-        setUserAnswers(deleteAnswer);
+  //       const deleteAnswer = [...userAnswers].filter(answer => {
+  //         return answer.id !== currentQuestion;
+  //       })
+  //       setUserAnswers(deleteAnswer);
 
-        const newChoose = isChoose.map((ele, index) => {
-          if(index == answerThis[0].answerId){
-            ele = false;
-          }
-          return ele;
-        })
+  //       const newChoose = isChoose.map((ele, index) => {
+  //         if(index == answerThis[0].answerId){
+  //           ele = false;
+  //         }
+  //         return ele;
+  //       })
         
-        setIsChoose(newChoose);
-      }
-    } else {
-        const newAnswer = {
-          id: currentQuestion,
-          answerId: e.currentTarget.id,
-          answer: answers[e.currentTarget.id]
-        }
-        setUserAnswers([...userAnswers, newAnswer]);
-        const newChoose = isChoose.map((ele, index) => {
-          if(index == newAnswer.answerId){
-            ele = true;
-          }
-          return ele;
-        })
+  //       setIsChoose(newChoose);
+  //     }
+  //   } else {
+  //       const newAnswer = {
+  //         id: currentQuestion,
+  //         answerId: e.currentTarget.id,
+  //         answer: answers[e.currentTarget.id]
+  //       }
+  //       setUserAnswers([...userAnswers, newAnswer]);
+  //       const newChoose = isChoose.map((ele, index) => {
+  //         if(index == newAnswer.answerId){
+  //           ele = true;
+  //         }
+  //         return ele;
+  //       })
         
-        setIsChoose(newChoose);
-      }    
+  //       setIsChoose(newChoose);
+  //     }    
+  // }
+
+function handleAnswer(e) {
+  const clickedAnswerId = parseInt(e.currentTarget.id);
+  const answerThis = userAnswers.find(
+    (answer) => answer.id === currentQuestion
+  );
+
+  // Uncheck the checkbox related to the existing answer and check the clicked checkbox
+  const newChoose = isChoose.map((ele, index) => {
+    if (answerThis && index === answerThis.answerId) {
+      ele = false; // Uncheck existing answer
+    } else if (index === clickedAnswerId) {
+      ele = !ele; // Toggle the state of the clicked checkbox
+    }
+    return ele;
+  });
+
+  // Update the state with the new checkbox states
+  setIsChoose(newChoose);
+
+  // Update the userAnswers array based on the clicked checkbox
+  if (answerThis) {
+    const updatedUserAnswers = userAnswers.filter(
+      (answer) => answer.id !== currentQuestion
+    );
+    setUserAnswers([
+      ...updatedUserAnswers,
+      {
+        id: currentQuestion,
+        answerId: clickedAnswerId,
+        answer: answers[clickedAnswerId],
+      },
+    ]);
+  } else {
+    setUserAnswers([
+      ...userAnswers,
+      {
+        id: currentQuestion,
+        answerId: clickedAnswerId,
+        answer: answers[clickedAnswerId],
+      },
+    ]);
   }
+}
+
+
 
   return (
     <>
