@@ -66,7 +66,7 @@ function Level2() {
         />
       ) : (
         <>
-          <h1 className="mb-3">Start Quiz</h1>
+          <h1 className="mb-3">Start Quiz Level 2</h1>
           <br />
           <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
             Start Quiz
