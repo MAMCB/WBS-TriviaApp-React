@@ -88,7 +88,7 @@ const FinalPageLevel2 = ({ questions, answers, resetMainPage }) => {
         ))}
       </div>
       <Button variant="primary" onClick={handleClick}>
-        Start new Quiz
+        Try again
       </Button>
     </>
   );
