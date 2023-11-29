@@ -17,7 +17,7 @@ function CategoryGrid() {
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]); //ANSWERS FOR FORM
   const [userAnswers, setUserAnswers] = useState([]); //USER ANSWERS
-  const[currentQuestion,setCurrentQuestion]=useState(0);
+  const [currentQuestion,setCurrentQuestion]=useState(0);
   
   
 

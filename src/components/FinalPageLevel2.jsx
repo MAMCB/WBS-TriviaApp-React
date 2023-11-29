@@ -3,44 +3,35 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { decode } from "html-entities";
 
-const FinalPage = ({ questions, answers, resetMainPage }) => {
-  console.log(answers);
-  // const qaPairs = [];
-  const [score, setScore] = useState(0);
+const FinalPageLevel2 = ({ questions, answers, resetMainPage }) => {
+    const [score, setScore] = useState(0);
 
-  const [togglesArr, setTogglesArr] = useState([]);
+    const [togglesArr, setTogglesArr] = useState([]);
 
-  useEffect(() => {
-    const correctAnswers = answers.filter((answer, index) => {
-      return answer.answer === questions[index].correct_answer;
-    });
-    correctAnswers.forEach(element => {decode(element)
-      
-    });
-    
-    console.log(correctAnswers);
+    useEffect(() => {
+      const correctAnswers = answers.filter((answer, index) => {
+        return answer.answer === questions[index].correctAnswer;
+      });
+      correctAnswers.forEach((element) => {
+        decode(element);
+      });
 
-    setScore(Math.round(correctAnswers.length * (100 / questions.length)));
-  }, [questions, answers]);
+      console.log(correctAnswers);
 
-  // for (let i = 0; i < questions.length; i++) {
+      setScore(Math.round(correctAnswers.length * (100 / questions.length)));
+    }, [questions, answers]);
 
-  //   qaPairs.push({
-  //     question: questions[i].question,
-  //     answer: answers[i].answer,
-  //   });
-  // }
+    function toggleItem(index) {
+      setTogglesArr((prevToggles) => {
+        const newArray = [...prevToggles];
+        newArray[index] = { id: index, status: !newArray[index]?.status };
+        return newArray;
+      });
+    }
+    function handleClick() {
+      resetMainPage();
+    }
 
-  function toggleItem(index) {
-    setTogglesArr((prevToggles) => {
-      const newArray = [...prevToggles];
-      newArray[index] = { id: index, status: !newArray[index]?.status };
-      return newArray;
-    });
-  }
-  function handleClick() {
-    resetMainPage();
-  }
 
   return (
     <>
@@ -57,14 +48,14 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
         </p>
       ))} */}
 
-      {/*Accordian variant */}
+      {/*Accordion variant */}
       <div className="accordion" id="accordionFinalPage">
         {questions.map((e, index) => (
           <div className="accordion-item" key={uuidv4()}>
             <h3 className="accordion-header" id={`heading${index}`}>
               <button
                 className={
-                  e.correct_answer === answers[index].answer
+                  e.correctAnswer === answers[index].answer
                     ? "correct accordion-button"
                     : "incorrect accordion-button"
                 }
@@ -91,15 +82,16 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
               data-bs-parent="#accordionFinalPage"
             >
               <p>Your answer: {decode(answers[index].answer)}</p>
-              <p>Correct answer: {decode(e.correct_answer)}</p>
+              <p>Correct answer: {decode(e.correctAnswer)}</p>
             </div>
           </div>
         ))}
       </div>
       <Button variant="primary" onClick={handleClick}>
-        Start new Quiz
+        Try again
       </Button>
     </>
   );
 };
-export default FinalPage;
+
+export default FinalPageLevel2;

@@ -2,34 +2,25 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { decode } from "html-entities";
+import QuestionsLevel1 from "./QuestionsLevel1";
 
-const FinalPage = ({ questions, answers, resetMainPage }) => {
-  console.log(answers);
-  // const qaPairs = [];
+const FinalPageLevel1 = ({ answers, resetMainPage }) => {
   const [score, setScore] = useState(0);
 
   const [togglesArr, setTogglesArr] = useState([]);
 
   useEffect(() => {
-    const correctAnswers = answers.filter((answer, index) => {
-      return answer.answer === questions[index].correct_answer;
+    const correctAnswers = answers.filter((answer) => {
+      return answer.isCorrectAnswer;
     });
-    correctAnswers.forEach(element => {decode(element)
-      
+    correctAnswers.forEach((element) => {
+      decode(element);
     });
-    
-    console.log(correctAnswers);
 
-    setScore(Math.round(correctAnswers.length * (100 / questions.length)));
-  }, [questions, answers]);
-
-  // for (let i = 0; i < questions.length; i++) {
-
-  //   qaPairs.push({
-  //     question: questions[i].question,
-  //     answer: answers[i].answer,
-  //   });
-  // }
+    setScore(
+      Math.round(correctAnswers.length * (100 / QuestionsLevel1.length))
+    );
+  }, []);
 
   function toggleItem(index) {
     setTogglesArr((prevToggles) => {
@@ -46,25 +37,13 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
     <>
       <h1>Your final results:</h1>
       <h2>Score:{score}%</h2>
-      {/* {questions.map((e, index) => (
-        <p
-          className={
-            e.correct_answer === answers[index].answer ? "correct" : "incorrect"
-          }
-          key={uuidv4()}
-        >
-          {e.question + " " + answers[index].answer}
-        </p>
-      ))} */}
-
-      {/*Accordian variant */}
       <div className="accordion" id="accordionFinalPage">
-        {questions.map((e, index) => (
+        {answers.sort((a,b)=>a.questionIndex-b.questionIndex).map((e, index) => (
           <div className="accordion-item" key={uuidv4()}>
             <h3 className="accordion-header" id={`heading${index}`}>
               <button
                 className={
-                  e.correct_answer === answers[index].answer
+                  e.isCorrectAnswer
                     ? "correct accordion-button"
                     : "incorrect accordion-button"
                 }
@@ -76,8 +55,8 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
                 aria-controls={`collapse${index}`}
                 onClick={() => toggleItem(index)}
               >
-                Question {index + 1} <br />
-                {decode(e.question)}
+                Question {e.questionIndex + 1} <br />
+                {decode(QuestionsLevel1[e.questionIndex].question)}
               </button>
             </h3>
             <div
@@ -90,16 +69,17 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
               aria-labelledby={`heading${index}`}
               data-bs-parent="#accordionFinalPage"
             >
-              <p>Your answer: {decode(answers[index].answer)}</p>
-              <p>Correct answer: {decode(e.correct_answer)}</p>
+              <p>Your answer: {decode(e.answer)}</p>
+              <p>Correct answer: {decode(QuestionsLevel1[e.questionIndex].correctAnswer)}</p>
             </div>
           </div>
         ))}
       </div>
       <Button variant="primary" onClick={handleClick}>
-        Start new Quiz
+        Try Again
       </Button>
     </>
   );
 };
-export default FinalPage;
+
+export default FinalPageLevel1;
