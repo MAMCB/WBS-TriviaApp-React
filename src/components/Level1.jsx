@@ -9,6 +9,7 @@ import Button from 'react-bootstrap/Button';
 import { Form, Stack } from 'react-bootstrap';
 import { decode } from "html-entities";
 import { v4 as uuidv4 } from "uuid";
+import FinalPageLevel1 from './FinalPageLevel1';
 
 
 function Level1() {
@@ -71,11 +72,27 @@ function Level1() {
    }
  }
 
+ const resetMainPage = () => {
+   setIsResult(false);
+   setIsQuiz(false);
+   setUserAnswers([]);
+   setIsChoose([
+     [false, false, false, false],
+     [false, false, false, false],
+     [false, false, false, false],
+     [false, false, false, false],
+     [false, false, false, false],
+     [false, false, false, false],
+   ]);
+ };
+
 
 
   return (
     <>
-      {isQuiz ? (
+      {isResult ? (
+        <FinalPageLevel1 answers={userAnswers} resetMainPage={resetMainPage} />
+      ) : isQuiz ? (
         <div>
           {QuestionsLevel1.map((question, index) => (
             <div key={index}>
@@ -87,8 +104,7 @@ function Level1() {
                       type="checkbox"
                       id={`${answerIndex}`}
                       checked={isChoose[index][answerIndex]}
-                      
-                      onChange={(e) => handleAnswer(e,index)}
+                      onChange={(e) => handleAnswer(e, index)}
                     />
                     <p>{decode(answer)}</p>
                   </Form>
@@ -96,14 +112,16 @@ function Level1() {
               </div>
             </div>
           ))}
-          <button>Submit</button>
+          <Button variant="primary" onClick={() => setIsResult(!isResult)}>
+            Submit
+          </Button>
         </div>
       ) : (
         <div>
           <p>Start quiz</p> <br />{" "}
-          <button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
+          <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
             Start the Quiz
-          </button>
+          </Button>
         </div>
       )}
     </>
