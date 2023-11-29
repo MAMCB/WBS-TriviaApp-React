@@ -4,7 +4,7 @@ import CategoryGrid from "./components/CategoryGrid";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import { NavLink } from "react-router-dom";
-import Level1 from "./components/level1";
+import Level1 from "./components/Level1";
 import Level2 from "./components/Level2";
 
 function App() {
