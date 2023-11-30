@@ -130,7 +130,10 @@ function Level1() {
       ) : (
         <div className="lv1-quiz">
           <h1 className="mb-3">Start Quiz Level 1</h1> <br />
-          
+          <img
+            src={require("../images/")}
+            alt="cloud"
+          />
           <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
             Start Quiz
           </Button>
