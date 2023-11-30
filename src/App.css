@@ -146,6 +146,16 @@ background: linear-gradient(90deg, rgba(69,115,250,1) 3%, rgba(104,25,177,1) 24%
   background-image: url("https://ronyabanks.com/wp-content/uploads/dark-cloudy-night-with-moon.jpg");
   background-size: 100%;
   opacity:1 ;
+  animation: 5s fadeInOut infinite alternate;
 }
 
+@keyframes fadeInOut {
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0.5;
+  }
+  
+}
 
