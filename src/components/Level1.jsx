@@ -98,13 +98,13 @@ function Level1() {
             <div key={index}>
               <h2>{decode(question.question)}</h2>
               <div className="answersStack d-flex flex-row align-items-center">
-                <Row md={2} className="g-4">
+                <Row md={2} className="g-4 questionForm lv1-row">
                   {question.answers.map((answer, answerIndex) => (
                     <Form key={uuidv4()}>
                       <div className="d-flex g-3">
                         <Stack gap={3} direction="horizontal" key={uuidv4()}>
                           <Form.Check
-                            className="me-3 "
+                            className="me-3"
                             type="checkbox"
                             id={`${answerIndex}`}
                             checked={isChoose[index][answerIndex]}
@@ -119,13 +119,18 @@ function Level1() {
               </div>
             </div>
           ))}
-          <Button variant="primary" onClick={() => setIsResult(!isResult)} disabled={userAnswers.length<6}>
+          <Button
+            variant="primary"
+            onClick={() => setIsResult(!isResult)}
+            disabled={userAnswers.length < 6}
+          >
             Submit
           </Button>
         </div>
       ) : (
-        <div>
+        <div className="lv1-quiz">
           <h1 className="mb-3">Start Quiz Level 1</h1> <br />
+          
           <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
             Start Quiz
           </Button>
