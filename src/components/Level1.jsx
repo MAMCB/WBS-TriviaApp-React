@@ -119,7 +119,7 @@ function Level1() {
               </div>
             </div>
           ))}
-          <Button variant="primary" onClick={() => setIsResult(!isResult)}>
+          <Button variant="primary" onClick={() => setIsResult(!isResult)} disabled={userAnswers.length<6}>
             Submit
           </Button>
         </div>
