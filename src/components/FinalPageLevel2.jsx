@@ -36,7 +36,7 @@ const FinalPageLevel2 = ({ questions, answers, resetMainPage }) => {
   return (
     <>
       <h1>Your final results:</h1>
-      <h2>Score:{score}%</h2>
+      <h2>Score: {score}%</h2>
       {/* {questions.map((e, index) => (
         <p
           className={
