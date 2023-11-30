@@ -97,30 +97,42 @@ function Level1() {
           {QuestionsLevel1.map((question, index) => (
             <div key={index}>
               <h2>{decode(question.question)}</h2>
-              <div className="answersStack">
-                {question.answers.map((answer, answerIndex) => (
-                  <Form key={uuidv4()}>
-                    <Form.Check
-                      type="checkbox"
-                      id={`${answerIndex}`}
-                      checked={isChoose[index][answerIndex]}
-                      onChange={(e) => handleAnswer(e, index)}
-                    />
-                    <p>{decode(answer)}</p>
-                  </Form>
-                ))}
+              <div className="answersStack d-flex flex-row align-items-center">
+                <Row md={2} className="g-4 questionForm lv1-row">
+                  {question.answers.map((answer, answerIndex) => (
+                    <Form key={uuidv4()}>
+                      <div className="d-flex g-3">
+                        <Stack gap={3} direction="horizontal" key={uuidv4()}>
+                          <Form.Check
+                            className="me-3"
+                            type="checkbox"
+                            id={`${answerIndex}`}
+                            checked={isChoose[index][answerIndex]}
+                            onChange={(e) => handleAnswer(e, index)}
+                          />
+                          <p>{decode(answer)}</p>
+                        </Stack>
+                      </div>
+                    </Form>
+                  ))}
+                </Row>
               </div>
             </div>
           ))}
-          <Button variant="primary" onClick={() => setIsResult(!isResult)}>
+          <Button
+            variant="primary"
+            onClick={() => setIsResult(!isResult)}
+            disabled={userAnswers.length < 6}
+          >
             Submit
           </Button>
         </div>
       ) : (
-        <div>
-          <p>Start quiz</p> <br />{" "}
+        <div className="lv1-quiz">
+          <h1 className="mb-3">Start Quiz Level 1</h1> <br />
+          
           <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
-            Start the Quiz
+            Start Quiz
           </Button>
         </div>
       )}
