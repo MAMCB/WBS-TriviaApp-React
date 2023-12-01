@@ -2,34 +2,28 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { decode } from "html-entities";
+import Gif from "../Gif/surprise.gif";
 
 const FinalPage = ({ questions, answers, resetMainPage }) => {
   console.log(answers);
-  // const qaPairs = [];
   const [score, setScore] = useState(0);
 
   const [togglesArr, setTogglesArr] = useState([]);
+
+  const [isGifVisible, setIsGifVisible] = useState(true);
 
   useEffect(() => {
     const correctAnswers = answers.filter((answer, index) => {
       return answer.answer === questions[index].correct_answer;
     });
-    correctAnswers.forEach(element => {decode(element)
-      
+    correctAnswers.forEach((element) => {
+      decode(element);
     });
-    
+
     console.log(correctAnswers);
 
     setScore(Math.round(correctAnswers.length * (100 / questions.length)));
   }, [questions, answers]);
-
-  // for (let i = 0; i < questions.length; i++) {
-
-  //   qaPairs.push({
-  //     question: questions[i].question,
-  //     answer: answers[i].answer,
-  //   });
-  // }
 
   function toggleItem(index) {
     setTogglesArr((prevToggles) => {
@@ -42,22 +36,14 @@ const FinalPage = ({ questions, answers, resetMainPage }) => {
     resetMainPage();
   }
 
+  setTimeout(() => {
+    setIsGifVisible(false);
+  }, "3000");
+
   return (
     <>
       <h1>Your final results:</h1>
-      <h2>Score:{score}%</h2>
-      {/* {questions.map((e, index) => (
-        <p
-          className={
-            e.correct_answer === answers[index].answer ? "correct" : "incorrect"
-          }
-          key={uuidv4()}
-        >
-          {e.question + " " + answers[index].answer}
-        </p>
-      ))} */}
-
-      {/*Accordian variant */}
+      {isGifVisible ? <img src={Gif} alt="my-gif" /> : <h2>Score:{score}%</h2>}
       <div
         className="accordion w-50 d-flex flex-column mb-3  m-auto"
         id="accordionFinalPage"
