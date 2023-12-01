@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { decode } from "html-entities";
 import QuestionsLevel1 from "./QuestionsLevel1";
+import Gif from "../Gif/surprise.gif";
 
 const FinalPageLevel1 = ({ answers, resetMainPage }) => {
   const [score, setScore] = useState(0);
 
   const [togglesArr, setTogglesArr] = useState([]);
+  const [isGifVisible, setIsGifVisible] = useState(true);
 
   useEffect(() => {
     const correctAnswers = answers.filter((answer) => {
@@ -33,10 +35,14 @@ const FinalPageLevel1 = ({ answers, resetMainPage }) => {
     resetMainPage();
   }
 
+  setTimeout(() => {
+    setIsGifVisible(false);
+  }, "3000");
+
   return (
     <>
       <h1>Your final results:</h1>
-      <h2>Score: {score}%</h2>
+      {isGifVisible ? <img src={Gif} alt="my-gif" /> : <h2>Score: {score}%</h2>}
       <div
         className="accordion w-50 d-flex flex-column  m-auto mb-3"
         id="accordionFinalPage"
