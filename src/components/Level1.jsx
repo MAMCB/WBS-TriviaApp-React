@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import FinalPageLevel1 from './FinalPageLevel1';
 
 
+
 function Level1() {
   const [isResult, setIsResult] = useState(false);
   const [isQuiz, setIsQuiz] = useState(false);
@@ -130,8 +131,11 @@ function Level1() {
       ) : (
         <div className="lv1-quiz">
           <h1 className="mb-3">Start Quiz Level 1</h1> <br />
-          
-          <Button variant="primary" onClick={() => setIsQuiz(!isQuiz)}>
+          <Button
+            size="lg"
+            variant="primary"
+            onClick={() => setIsQuiz(!isQuiz)}
+          >
             Start Quiz
           </Button>
         </div>

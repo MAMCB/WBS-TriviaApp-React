@@ -36,7 +36,7 @@ const FinalPageLevel1 = ({ answers, resetMainPage }) => {
   return (
     <>
       <h1>Your final results:</h1>
-      <h2>Score:{score}%</h2>
+      <h2>Score: {score}%</h2>
       <div
         className="accordion w-50 d-flex flex-column  m-auto mb-3"
         id="accordionFinalPage"
