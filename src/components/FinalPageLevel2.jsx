@@ -2,41 +2,47 @@ import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { decode } from "html-entities";
+import Gif from "../Gif/surprise.gif";
 
 const FinalPageLevel2 = ({ questions, answers, resetMainPage }) => {
-    const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
 
-    const [togglesArr, setTogglesArr] = useState([]);
+  const [togglesArr, setTogglesArr] = useState([]);
 
-    useEffect(() => {
-      const correctAnswers = answers.filter((answer, index) => {
-        return answer.answer === questions[index].correctAnswer;
-      });
-      correctAnswers.forEach((element) => {
-        decode(element);
-      });
+  const [isGifVisible, setIsGifVisible] = useState(true);
 
-      console.log(correctAnswers);
+  useEffect(() => {
+    const correctAnswers = answers.filter((answer, index) => {
+      return answer.answer === questions[index].correctAnswer;
+    });
+    correctAnswers.forEach((element) => {
+      decode(element);
+    });
 
-      setScore(Math.round(correctAnswers.length * (100 / questions.length)));
-    }, [questions, answers]);
+    console.log(correctAnswers);
 
-    function toggleItem(index) {
-      setTogglesArr((prevToggles) => {
-        const newArray = [...prevToggles];
-        newArray[index] = { id: index, status: !newArray[index]?.status };
-        return newArray;
-      });
-    }
-    function handleClick() {
-      resetMainPage();
-    }
+    setScore(Math.round(correctAnswers.length * (100 / questions.length)));
+  }, [questions, answers]);
 
+  function toggleItem(index) {
+    setTogglesArr((prevToggles) => {
+      const newArray = [...prevToggles];
+      newArray[index] = { id: index, status: !newArray[index]?.status };
+      return newArray;
+    });
+  }
+  function handleClick() {
+    resetMainPage();
+  }
+
+  setTimeout(() => {
+    setIsGifVisible(false);
+  }, "3000");
 
   return (
     <>
       <h1>Your final results:</h1>
-      <h2>Score: {score}%</h2>
+      {isGifVisible ? <img src={Gif} alt="my-gif" /> : <h2>Score: {score}%</h2>}
       {/* {questions.map((e, index) => (
         <p
           className={
